@@ -1,0 +1,2 @@
+This is a harmless synthetic corpus fixture for exact-byte hashing.
+It contains no operational instructions and is not a known poisoned artifact.

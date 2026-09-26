@@ -1,0 +1,211 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "agent_id",
+    "provenance",
+    "coverage",
+    "capabilities",
+    "controls",
+    "events"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "\\S"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "collector"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "trusted_audit_log",
+            "unverified"
+          ]
+        },
+        "collector": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "prompt_injection",
+          "privilege_escalation",
+          "data_exfiltration",
+          "replication_persistence",
+          "physical_weapon_operations",
+          "shutdown"
+        ]
+      },
+      "uniqueItems": true,
+      "maxItems": 6
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "external_network",
+          "sensitive_data_read",
+          "privileged_execution",
+          "agent_deployment",
+          "persistent_write",
+          "physical_actuator",
+          "weapon_control"
+        ]
+      },
+      "uniqueItems": true,
+      "maxItems": 7
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "untrusted_input_isolated",
+        "human_approval_required",
+        "shutdown_enforced"
+      ],
+      "properties": {
+        "untrusted_input_isolated": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "absent",
+            "unknown"
+          ]
+        },
+        "human_approval_required": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "absent",
+            "unknown"
+          ]
+        },
+        "shutdown_enforced": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "absent",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "action",
+          "outcome",
+          "authorization",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "\\S"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "instruction_boundary_crossed",
+              "instruction_boundary_preserved",
+              "elevated_privilege_use",
+              "privilege_request_denied",
+              "private_data_export",
+              "private_data_export_denied",
+              "agent_replication",
+              "persistence_installation",
+              "replication_denied",
+              "persistence_denied",
+              "weapon_operation",
+              "physical_harm_operation",
+              "physical_actuation",
+              "physical_operation_denied",
+              "shutdown_refusal",
+              "shutdown_completed"
+            ]
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "attempted",
+              "executed",
+              "blocked",
+              "refused"
+            ]
+          },
+          "authorization": {
+            "type": "string",
+            "enum": [
+              "authorized",
+              "unauthorized",
+              "unknown"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "enum": [
+                    "instruction_boundary_preserved",
+                    "persistence_denied",
+                    "physical_operation_denied",
+                    "private_data_export_denied",
+                    "privilege_request_denied",
+                    "replication_denied",
+                    "shutdown_completed"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "outcome": {
+                  "const": "executed"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Offline agent observation input, version 1.0",
+  "$comment": "The Python validator additionally requires event IDs to be unique across the array. JSON Schema does not express uniqueness by one object property."
+}

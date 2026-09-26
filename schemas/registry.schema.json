@@ -1,0 +1,196 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://[^\\s/@]+(?:[/?#][^\\s]*)?$",
+      "description": "HTTPS provenance only. Runtime also rejects credentials, malformed ports and control characters."
+    },
+    "category": {
+      "enum": [
+        "data_poisoning",
+        "model_backdoor",
+        "prompt_injection",
+        "unsafe_training_content"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "status": {
+      "enum": [
+        "candidate",
+        "confirmed",
+        "retracted"
+      ]
+    },
+    "disposition": {
+      "enum": [
+        "review",
+        "exclude",
+        "allow"
+      ]
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://[^\\s/@]+(?:[/?#][^\\s]*)?$",
+            "description": "HTTPS provenance only. Runtime also rejects credentials, malformed ports and control characters."
+          },
+          "kind": {
+            "enum": [
+              "incident_report",
+              "controlled_experiment",
+              "artifact_analysis"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "url",
+          "kind",
+          "note"
+        ]
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reviewer": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$"
+          },
+          "reviewed_at": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "decision": {
+            "enum": [
+              "confirm",
+              "reject",
+              "needs_review"
+            ]
+          }
+        },
+        "required": [
+          "reviewer",
+          "reviewed_at",
+          "decision"
+        ]
+      }
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  },
+  "required": [
+    "id",
+    "sha256",
+    "source_url",
+    "category",
+    "summary",
+    "status",
+    "disposition",
+    "synthetic",
+    "evidence",
+    "reviews",
+    "expires_at"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Single AI Safety Evidence registry record (one JSONL line)",
+  "description": "Runtime additionally checks registry-wide unique IDs/hashes, casefolded reviewer uniqueness, valid calendar dates, review date <= today and expiry. Format validation is not evidence verification.",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "candidate"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "disposition": {
+            "const": "review"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "confirmed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "disposition": {
+            "const": "exclude"
+          },
+          "evidence": {
+            "minItems": 1
+          },
+          "reviews": {
+            "minItems": 2,
+            "items": {
+              "properties": {
+                "decision": {
+                  "const": "confirm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "retracted"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "disposition": {
+            "const": "allow"
+          }
+        }
+      }
+    }
+  ]
+}

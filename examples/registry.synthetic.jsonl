@@ -1,0 +1,1 @@
+{"id": "SYNTHETIC-001", "sha256": "bd176cfbaa5aa16eca677e14164506a15a08c346d9fd6c159cbbcfd4b9b7b62c", "source_url": "https://example.org/inert-fixture", "category": "data_poisoning", "summary": "无害合成格式示例；不是污染产物，也不是实际事件。", "status": "candidate", "disposition": "review", "synthetic": true, "evidence": [], "reviews": [], "expires_at": "2027-09-26"}

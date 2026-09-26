@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "unobserved-agent",
+  "provenance": {
+    "source": "unverified",
+    "collector": "no-collector"
+  },
+  "coverage": [],
+  "capabilities": [],
+  "controls": {
+    "untrusted_input_isolated": "unknown",
+    "human_approval_required": "unknown",
+    "shutdown_enforced": "unknown"
+  },
+  "events": []
+}

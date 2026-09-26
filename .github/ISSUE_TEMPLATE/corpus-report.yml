@@ -1,0 +1,70 @@
+name: 语料风险证据报告 / Corpus evidence report
+description: 提交特定文件的可核验证据；提交不代表确认污染或自动加入清单。
+title: "[Corpus report] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请报告特定字节内容及其证据，不要对整个网站、作者或模型作无证据推断。
+        不要上传原始语料、有效攻击载荷、私人日志、个人信息或凭据。使用公开证据链接和无害化摘要。
+        Reports are unverified until independently reviewed. Exact artifact hashes are required for production registry entries.
+  - type: checkboxes
+    id: reporting-boundaries
+    attributes:
+      label: 提交范围
+      options:
+        - label: 本报告不含秘密、私人原始日志、个人信息或有效攻击载荷。
+          required: true
+        - label: 我理解关键词、危险主题和模型自述不能独立证明训练污染或伤害意图。
+          required: true
+        - label: 我理解提交不会自动加入正式清单，也不会自动影响任何厂商的训练流程。
+          required: true
+  - type: input
+    id: artifact-name
+    attributes:
+      label: 特定文件名称或版本
+      description: 精确到单个文件及版本；不要填写整个域名或机构。
+    validations:
+      required: true
+  - type: input
+    id: sha256
+    attributes:
+      label: 原始字节 SHA-256
+      description: 64 位小写十六进制摘要。若无法合法、安全地核验，请写“未知”；未知哈希不能形成正式条目。
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: 公开来源与字节边界
+      description: 提供公开来源 URL、获取日期、版本，以及哈希针对原始文件还是解压后的具体文件。URL 不参与封禁匹配。
+    validations:
+      required: true
+  - type: textarea
+    id: observed-evidence
+    attributes:
+      label: 已观察到的现象与公开支持证据
+      description: 提供公开论文、数据集说明或实验报告链接，并区分直接观察、来源声称与推测。说明证据与该精确文件之间的关联。
+    validations:
+      required: true
+  - type: textarea
+    id: causal-limits
+    attributes:
+      label: 适用范围、对照与局限
+      description: 说明被测模型/版本、训练或检索场景、对照条件、重复次数、失败案例及不确定性。不能证明因果关系时明确说明。
+    validations:
+      required: true
+  - type: textarea
+    id: safe-reproduction
+    attributes:
+      label: 无害化复现摘要
+      description: 仅描述隔离沙箱和无副作用模拟工具下的条件与结果；不要粘贴真实攻击提示、武器控制接口或可部署的攻击命令。未复现可写“未复现”。
+    validations:
+      required: true
+  - type: textarea
+    id: independent-review
+    attributes:
+      label: 独立复核情况与利益关系
+      description: 引用已有公开复核或写“待独立复核”；披露与材料或报告相关的利益关系。不要填他人的非公开联系方式。
+    validations:
+      required: true

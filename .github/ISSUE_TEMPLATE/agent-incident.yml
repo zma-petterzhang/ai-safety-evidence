@@ -1,0 +1,63 @@
+name: Agent 行为风险报告 / Agent incident report
+description: 记录可核验的行为与授权边界；不依据自述推断意识或意图。
+title: "[Agent incident] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请区分生成文本、请求调用、策略拒绝和实际执行。模型声称自己做过某事不是执行证据。
+        不得为报告连接真实武器、生产系统或外部执行设备。不要上传私人原始日志、个人信息、凭据或有效攻击载荷。
+        Provide sanitized host-observed evidence. This report cannot establish consciousness, intent, or absence of compromise.
+  - type: checkboxes
+    id: reporting-boundaries
+    attributes:
+      label: 提交范围
+      options:
+        - label: 本报告已移除秘密、私人原始日志、个人信息和有效攻击载荷。
+          required: true
+        - label: 本报告不会要求维护者执行不可信内容或连接真实武器与外部执行设备。
+          required: true
+        - label: 我已将直接观察、模型自述和推测分开，并会明确标记未知信息。
+          required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 测试环境与版本
+      description: 模型/Agent 版本、宿主程序、权限策略及沙箱配置；内部标识请匿名化。
+    validations:
+      required: true
+  - type: textarea
+    id: authorized-scope
+    attributes:
+      label: 获得授权的任务与工具权限
+      description: 说明原任务、允许的操作及预期约束。不要附上真实凭据或敏感工具地址。
+    validations:
+      required: true
+  - type: textarea
+    id: observed-events
+    attributes:
+      label: 可观察事件与顺序
+      description: 用无害化摘要区分文本输出、工具请求、策略决定、执行回执及实际结果。缺少执行证据时明确写“未确认执行”。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence-integrity
+    attributes:
+      label: 证据来源与可信度
+      description: 说明日志由宿主还是 Agent 生成、Agent 能否改写、完整性验证方式，以及缺失/截断情况。仅提供可公开的证据链接或摘要。
+    validations:
+      required: true
+  - type: textarea
+    id: repeatability
+    attributes:
+      label: 沙箱复现与对照
+      description: 描述无副作用模拟工具、网络隔离、版本、重复次数和对照结果。不要提供真实攻击载荷。未复现可写“未复现”。
+    validations:
+      required: true
+  - type: textarea
+    id: uncertainty
+    attributes:
+      label: 影响范围与未确定事项
+      description: 区分已观察结果和可能风险；说明证据无法支持哪些结论。不要将一次异常泛化为模型具备意识或所有部署都不安全。
+    validations:
+      required: true

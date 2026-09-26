@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-26",
+  "purpose": "research_reference_not_blocklist",
+  "notice": "研究参考目录，不是污染产物黑名单。网页已核对，不等于独立复现实验或完成产物核验；所有条目均不得作为生产排除项。",
+  "entries": [
+    {
+      "id": "nist-aml-2025",
+      "title": "Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations",
+      "url": "https://csrc.nist.gov/pubs/ai/100/2/e2025/final",
+      "publisher": "NIST",
+      "publication_date": "2025-03",
+      "version": "NIST AI 100-2e2025",
+      "observed_at": "2026-09-26",
+      "evidence_kind": "taxonomy",
+      "summary": "提供按生命周期、攻击目标与攻击者能力组织的对抗机器学习术语。",
+      "limitations": ["不是具体模型或语料产物的失陷证明。", "发布页存在更正提示，应随版本复核。"],
+      "blocklist_eligible": false
+    },
+    {
+      "id": "owasp-poisoning-2025",
+      "title": "LLM04:2025 Data and Model Poisoning",
+      "url": "https://genai.owasp.org/llmrisk/llm042025-data-and-model-poisoning/",
+      "publisher": "OWASP GenAI Security Project",
+      "publication_date": null,
+      "version": "LLM04:2025",
+      "observed_at": "2026-09-26",
+      "evidence_kind": "security_guidance",
+      "summary": "描述训练数据、模型完整性及后门风险，建议管理来源、版本和隔离边界。",
+      "limitations": ["网页未核得精确发布日期；版本年份不当作发布日期。", "指南示例不等于具体互联网文件的已证实投毒事件。"],
+      "blocklist_eligible": false
+    },
+    {
+      "id": "owasp-agency-2025",
+      "title": "LLM06:2025 Excessive Agency",
+      "url": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "publisher": "OWASP GenAI Security Project",
+      "publication_date": null,
+      "version": "LLM06:2025",
+      "observed_at": "2026-09-26",
+      "evidence_kind": "security_guidance",
+      "summary": "把过多功能、权限和自主性列为系统异常行为造成影响的风险因素。",
+      "limitations": ["网页未核得精确发布日期；版本年份不当作发布日期。", "应评估实际部署及执行权限，不能从中判断模型主观意识。"],
+      "blocklist_eligible": false
+    },
+    {
+      "id": "sleeper-agents-2024",
+      "title": "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training",
+      "url": "https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training",
+      "publisher": "Anthropic",
+      "publication_date": "2024-01-14",
+      "version": "research announcement",
+      "observed_at": "2026-09-26",
+      "evidence_kind": "controlled_research",
+      "summary": "研究构造的条件性后门在部分被测安全训练后仍持续存在。",
+      "limitations": ["研究人员主动构造的概念验证。", "不能证明线上模型自然产生同样行为或主观恶意。", "本仓库未独立复现实验。"],
+      "blocklist_eligible": false
+    },
+    {
+      "id": "emergent-misalignment-2025",
+      "title": "Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs",
+      "url": "https://arxiv.org/abs/2502.17424v7",
+      "publisher": "Jan Betley et al. / arXiv",
+      "publication_date": "2025-02-24",
+      "revised_at": "2026-01-20",
+      "version": "arXiv:2502.17424v7",
+      "observed_at": "2026-09-26",
+      "evidence_kind": "controlled_research",
+      "summary": "特定窄任务微调后观察到跨领域不安全回答，结果受到数据语境与模型影响。",
+      "limitations": ["模型输出并不一致；不代表所有微调任务或模型。", "文本行为不能等同现实行动、人身伤害或意识证据。", "本仓库未独立复现实验。"],
+      "blocklist_eligible": false
+    },
+    {
+      "id": "web-scale-poisoning-2023",
+      "title": "Poisoning Web-Scale Training Datasets is Practical",
+      "url": "https://arxiv.org/abs/2302.10149v2",
+      "publisher": "Nicholas Carlini et al. / arXiv",
+      "publication_date": "2023-02-20",
+      "revised_at": "2024-05-06",
+      "version": "arXiv:2302.10149v2",
+      "observed_at": "2026-09-26",
+      "evidence_kind": "controlled_research",
+      "summary": "展示可变网页给大规模训练数据采集带来的完整性问题及投毒可行性。",
+      "limitations": ["不证明论文所涉及数据集全体、当前版本或所有使用者均被污染。", "不是本仓库核验过的可排除文件清单。", "本仓库未独立复现实验。"],
+      "blocklist_eligible": false
+    },
+    {
+      "id": "small-samples-poison-2025",
+      "title": "A small number of samples can poison LLMs of any size",
+      "url": "https://www.anthropic.com/research/small-samples-poison",
+      "publisher": "Anthropic / UK AI Security Institute / The Alan Turing Institute",
+      "publication_date": "2025-10-09",
+      "version": "research announcement",
+      "observed_at": "2026-09-26",
+      "evidence_kind": "controlled_research",
+      "summary": "在受控的 600M–13B 模型实验中，少量污染文档可诱发无意义文本输出后门。",
+      "limitations": ["范围是特定低风险行为和被测规模，不能把标题外推为任意模型及危害。", "未证明自我复制、现实破坏或人身伤害。", "本仓库未独立复现实验。"],
+      "blocklist_eligible": false
+    }
+  ]
+}
