@@ -4,6 +4,8 @@
 
 [English](README.en.md) · [威胁模型](docs/threat-model.md) · [证据政策](docs/evidence-policy.md) · [接入说明](docs/integration.md) · [参考研究](docs/references.md)
 
+**联系作者：** [petterzhang0514@gmail.com](mailto:petterzhang0514@gmail.com)
+
 ## 项目要回答什么
 
 | 方向 | 可检查的证据 | 不能据此得出的结论 |

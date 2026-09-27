@@ -2,6 +2,8 @@
 
 Offline, evidence-based triage for AI agent behavior and training-corpus exclusions. [中文](README.md).
 
+**Contact:** [petterzhang0514@gmail.com](mailto:petterzhang0514@gmail.com)
+
 This initial implementation evaluates supplied capability snapshots and structured event logs, and matches corpus artifacts against reviewed SHA-256 exclusions. It distinguishes capability exposure, attempted actions, containment, and reported execution. It cannot infer consciousness, harmful intent, or training-data causation from a model's statements.
 
 **The production registry is initially empty.** No real artifact has completed this project's independent review. The research catalog is context, not a blocklist. No comprehensive list of all poisoned internet content is claimed. These are rule-based triage tools, without validated detection-performance claims.

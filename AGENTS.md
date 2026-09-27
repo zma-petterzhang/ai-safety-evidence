@@ -7,3 +7,4 @@ Public blocklist entries require exact artifact SHA-256, public supporting evide
 Research references and synthetic examples are never production blocklist entries.
 Use Python 3.9+ standard library for the CLI; run `python3 -m unittest discover -s tests -v` before publishing.
 Public files must contain no private logs, personal data, secrets, or live attack payloads.
+Maintainer contact details explicitly authorized for publication are allowed.
